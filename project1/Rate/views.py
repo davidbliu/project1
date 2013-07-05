@@ -1,59 +1,59 @@
-# Create your views here.
-# Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from Rate.models import Category, Entry
+from Rate.models import Category, Entry, Rating, Person
 from django import forms
 from django.forms import ModelForm
 from django.template import RequestContext
 from django.core.context_processors import csrf
+from django.forms.formsets import formset_factory
+
 
 def cat_list(request):
-	response=HttpResponse()
-	response.write("<html> <body> \n")
-	response.write("<h1> Categories </h1> <hr>")
 	cList=Category.objects.all()
-	for c in cList:
-		link = "<a href= \"info/%d\">" %(c.id)
-		response.write("<li> %s%s</a></li>" % (link, c.type))
-	response.write("</body></html>")
-	return response
-# def details(request, pID='0', opts=()):
-# 	p=get_object_or_404(Person, pk=pID)
-# 	return render_to_response('People/person_details.html', {'p':p})
-	
+	return render_to_response('Rate/category_list.html',{'categories': cList})
+
 def entry_detail(request, eID='0', opts=()):
 	entry=get_object_or_404(Entry, pk=eID)
-	return render_to_response('Rate/entry_detail.html', {'entry':entry})
-
-
-class EntryForm(ModelForm):
+	ratings=Rating.objects.all()
+	score=0
+	numRates=0
+	for rate in ratings:
+		if rate.entry==entry:
+			score+=rate.score
+			numRates+=1
+	if (numRates !=0 ):
+		score=score/numRates
+	return render_to_response('Rate/entry_detail.html', {'entry':entry, 'score':score})
+#not in use 
+class imageForm(ModelForm):
 	class Meta:
 		model=Entry
-		fields=[]
-def entry_form(request, eID='0', opts=()):
-	form=EntryForm()
-	message='unknown request'
-	entry=get_object_or_404(Entry, pk=eID)
-	if request.method=='GET':
-		form=EntryForm(instance=entry)
-		message='Editing Entry %s ' % entry.name 
+		fields=['image']
+
+
+class CustAddForm(ModelForm):
+	class Meta:
+		model=Entry	
+		fields=['name', 'image', 'category','date_added','description']
+		widgets={
+			'name':forms.HiddenInput(),
+			'category':forms.HiddenInput(),
+			'date_added':forms.HiddenInput(),
+			'description':forms.HiddenInput(),
+		}
+def add_view(request):
+	forms=[]
+	for i in range(0,10):
+		form=CustAddForm(initial={'category': Category.objects.get(id=1)})
+		forms.append(form)
 	if request.method=='POST':
-		if request.POST['submit']=='1' or request.POST['submit']=='2' or request.POST['submit']=='3' or request.POST['submit']=='4' or request.POST['submit']=='5':
-			message='Update request for %s' % entry.name
-			form=EntryForm(request.POST.copy(), instance=entry)
-			if form.is_valid():
-				try:
-					entry.rating= float(request.POST['submit'])
-					form.save()
-					message+=' Updated'
-				except:
-					message=' Database Error'
-			else:
-				message+='invalid'
+		print('post request made in add_view')
+		print(request.POST['image'])
+		entry=Entry(image=request.POST['image'], category=Category.objects.get(id=1))
+		entry.save()
+	print forms[0]
 	c={}
+	c['forms']=forms
 	c.update(csrf(request))
-	c['eForm']=form
-	c['message']=message
-	return render_to_response('Rate/entry_form.html', c) 
+	return render_to_response('Rate/add_images.html',c)
 

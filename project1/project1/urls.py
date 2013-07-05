@@ -14,7 +14,13 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    (r'^add-to-db/$', 'Rate.views.add_view'),
     (r'^categories/$', 'Rate.views.cat_list'),
     (r'^entry/(?P<eID>\d+)/$', 'Rate.views.entry_detail'),
-    (r'^entry_form/(?P<eID>\d+)/$', 'Rate.views.entry_form'),
+    (r'^entry_form/(?P<eID>\d+)/$', 'Rate.forms.entry_form'),
+    (r'^rate/$', 'Rate.forms.rate_form'),
+    (r'^rate2/(?P<eID>\d+)/$', 'Rate.forms.rate_formset'),
+    (r'^rate3/(?P<pID>\d+)/$', 'Rate.forms.rate_form3'),
+
 )

@@ -72,6 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    'c:/users/david/desktop/project1/project1/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -89,7 +90,8 @@ SECRET_KEY = '72ui5e32)j7qx0$2dbb7@p(lb37&zen2unx@q=3s0@d-)jjoxk'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.app_directories.load_template_source',
+#     'django.template.loaders.eggs.Loader', the last line may not be required ^
 )
 
 MIDDLEWARE_CLASSES = (
@@ -121,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

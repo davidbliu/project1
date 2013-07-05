@@ -1,0 +1,16 @@
+{% extends 'rate_base.html' %}
+{% block title %} Rating Formset {% endblock %}
+
+{% block content %}
+<h3> this is the rate formset</h3>
+<form method="post" action=".">
+{% csrf_token %}
+<table>
+	{% for form in formsList %}
+    	<img src={{form.entry.image}} height=100 width=100> </img>
+    	{{form}}
+	{% endfor %}
+</table>
+<input type="submit" name="submit" value="update"/>
+</form>
+{% endblock %}

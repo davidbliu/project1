@@ -1,14 +1,21 @@
+{% extends 'rate_base.html' %}
 
-<html>
-<head>
-	<title> entry details</title>
-</head>
+{% block title %} 
+Entry Details
+{% endblock %}
 
 
-<body>
-<p> name {{entry.name}} </p>
-<p> category {{entry.category}} </p>
-<p> rating {{entry.rating}} </p>
-<p> image {{entry.image}} </p>
-</body>
-</html>
+
+{% block content %} 
+<p> name: {{entry.name}} </p>
+<p> id: {{entry.id}} </p>
+<p> category: {{entry.category}} </p>
+<p> rating: {{score}} </p>
+<p> image: <img src={{entry.image}} height=100 width= 100></img> </p>
+<p><a href='/entry/{{entry.id|add:'-1'}}'>previous entry</a>
+	<a href='/entry/{{entry.id|add:'1'}}'>next entry</a>
+</p>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

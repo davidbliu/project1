@@ -1,0 +1,16 @@
+RESOURCES
+POTENTIAL PROBLEMS
+	ids of entries not reindexed after deleting so something may go wrong
+	need to start using formsets
+TEMPLATES:
+	setting variable inside template
+		 http://stackoverflow.com/questions/1070398/how-to-set-a-value-of-a-variable-inside-a-template-code
+
+	lists in templates
+		http://stackoverflow.com/questions/1479206/django-templating-how-to-access-properties-of-the-first-item-in-a-list
+
+	numeric for loop in templates
+		http://stackoverflow.com/questions/1107737/numeric-for-loop-in-django-templates
+
+	dictionary lookup in templates
+		http://stackoverflow.com/questions/8000022/django-template-how-to-lookup-a-dictionary-value-with-a-variable
