@@ -1,0 +1,23 @@
+{% extends 'rate_base.html' %}
+{% load extras %}
+{% block title %} 
+change db form
+{% endblock %}
+
+
+
+{% block content %} 
+<h1> hello and welcome to the changedb view </h1>
+<form method='post' action='.'>
+ {% csrf_token %}
+ <!-- <div id="tableDiv"><table id="table" border='1' cellspacing='5'></table></div>  -->
+ {% for url in urls %}
+ 	<div id='iBox' border='1' class= 'iBox'> {{forms|get_item:url}}
+ 	<img src='{{url}}' height = 100 width = 100> </img>
+ 	<input type='submit' name={{url}} value='add image'>
+ 	</div>
+ {% endfor %}
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

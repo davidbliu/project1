@@ -1,0 +1,22 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+login view
+{% endblock %}
+
+
+
+{% block content %} 
+<h1> login</h1>
+<form method='post' action='.'>
+	{% csrf_token %}
+<table>
+	{{lForm}}
+</table>
+
+	<input type='submit' name='submit' value='login'/>
+</form>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

@@ -1,20 +1,63 @@
-{% extends 'rate_base.html' %}
+{% extends 'rate_page.html' %}
 
-{% block title %} 
-Entry Details
+
+
+
+{% block style %} 
+
 {% endblock %}
 
+{% block sideBar %} 
+<u1 id='entry_data_list'>
+	<li> name: {{entry.name}} </li>
+	<li> added by: <a href='/activity/{{entry.added_by.id}}'>{{entry.added_by}}</a> </li>
+	<li> id: {{entry.id}} </li>
+	<li> category:<a href='/categories/info/{{entry.category.id}}'> {{entry.category}} </a></li>
+	<li> rating: {{score}} </li>
+	<li> date added: {{entry.date_added}}
+	<li> description: {{entry.description}}</li>
+</u1>
+<img src={{entry.image}} height=100 width= 100></img> 
+{% if person and entry.added_by == person %}
+<form method='post' action='.'>
+	{% csrf_token %}
+	<input type='submit' name='delete_entry' value='delete entry'/>
+	</form>
+{% endif %}
 
-
-{% block content %} 
-<p> name: {{entry.name}} </p>
-<p> id: {{entry.id}} </p>
-<p> category: {{entry.category}} </p>
-<p> rating: {{score}} </p>
-<p> image: <img src={{entry.image}} height=100 width= 100></img> </p>
-<p><a href='/entry/{{entry.id|add:'-1'}}'>previous entry</a>
+<div id='rating_wrapper'>
+	<form method='post' action ='.'> Rate this item: 
+		{% csrf_token %}
+		<input type ='submit' name='rate' value='1'>
+		<input type ='submit' name='rate' value='2'>
+		<input type ='submit' name='rate' value='3'>
+		<input type ='submit' name='rate' value='4'>
+		<input type ='submit' name='rate' value='5'>
+	</form>
+</div>
+<div id='new_comment_wrapper'>
+	<form action = '.' method = 'post'>
+	{% csrf_token %}
+		<input type='text' name='comment_text' value='new comment'/>
+		<input type='submit' name='add_comment' value='submit comment'/>
+	</form>
+</div>
+<u1 id='comments_list'> 
+	{% if comments|length == 0 %}
+	<strong> there are no comments </strong>
+	{% else %}
+	<strong> user comments: </strong>
+	{% endif %}
+	{% for comment in comments %}
+	<li> person: {{comment.person}}
+		</br>
+		comment: {{comment.comment}}
+	</li>
+	{% endfor %}
+</u1>
+<!-- <p><a href='/entry/{{entry.id|add:'-1'}}'>previous entry</a>
 	<a href='/entry/{{entry.id|add:'1'}}'>next entry</a>
-</p>
+</p> -->
 {% endblock %}
 
 

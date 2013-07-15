@@ -1,0 +1,32 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+<h1> list of categories </h1>
+{% endblock %}
+
+
+
+{% block content %} 
+</br>
+<u1 id='category_list' > <strong> here is the list of categories: </strong>
+{% for c in categories %}
+    <li> 
+    	<a href="info/{{c.id}}">{{c.type}}</a> 
+    </li>
+{% endfor %}
+</u1>
+</br>
+<strong> add new category: </strong>
+<br>
+<form method='post' action='.'>
+	{% csrf_token %}
+	<input type='text' name='cat_name' value='enter category name'/>
+	<input type='submit' name='add_cat' value='add new category'/>
+</form>
+{% endblock %}
+
+{% block rightSideBar %}
+<br> <strong> recent friend activity: </strong>
+{% endblock %}
+
+{% block pageFooter %} {% endblock %}

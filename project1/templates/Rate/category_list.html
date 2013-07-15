@@ -1,17 +1,22 @@
-{% extends 'rate_base.html' %}
-
-{% block title %} 
-List of Categories
-{% endblock %}
+{% extends 'rate_page.html' %}
 
 
-
-{% block content %} 
+{% block sideBar %} 
+<u1 id='category_list' > <strong> Categories: </strong>
 {% for c in categories %}
     <li> 
-    	<a href="categories/info/{{c.id}}">{{c.type}}</a> 
+    	<a href="info/{{c.id}}">{{c.type}}</a> 
     </li>
 {% endfor %}
+</u1>
+</br>
+<strong> add new category: </strong>
+<br>
+<form method='post' action='.'>
+	{% csrf_token %}
+	<input type='text' name='cat_name' value='enter category name'/>
+	<input type='submit' name='add_cat' value='add new category'/>
+</form>
 {% endblock %}
 
 

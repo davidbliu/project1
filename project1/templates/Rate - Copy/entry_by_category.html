@@ -1,0 +1,30 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+List of Categories
+{% endblock %}
+
+
+
+{% block content %} 
+<strong> here are the entries </strong>
+{% if entryList|length == 0 %}
+<p> there are no entries under that category </p>
+{% endif %}
+</br>
+<a href='/categories/'> go back to categories </a>
+</br>
+<u1 id='entry_list'>
+{% for e in entryList %}
+    <li> 
+    	<a href="/entry/{{e.id}}">{{e.name}}</a> 
+    	<img src='{{e.image}}' height=100 width=100> </img>
+    </li>
+{% endfor %}
+</u1>
+<br>
+<a href='/categories'> submit new entry</a>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

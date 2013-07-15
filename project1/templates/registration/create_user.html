@@ -1,0 +1,21 @@
+{% extends 'rate_page.html' %}
+
+
+
+
+
+{% block sideBar %} 
+<br>
+<p> here you can create a new user </p>
+<form method='post' action='.'>
+	{% csrf_token %}
+<table>
+	{{uForm}}
+</table>
+
+	<input type='submit' name='submit' value='create'/>
+</form>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

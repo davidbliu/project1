@@ -1,0 +1,40 @@
+{% extends 'rate_page.html' %}
+
+{% block sideBar %} 
+<p> {{message}} <strong>{{main_person.user.username}} </strong></p>
+<img src='{{main_person.avatar}}' height =100 width=100> </img>
+<br>
+<u1 class='nav'>
+	<li id='first_li'> <a href='ratings'>ratings</a></li>
+	<li> <a href='comments'>comments</a></li>
+	<li id='last_li'> <a href='uploads'>uploads</a></li>
+</u1>
+<br>
+</br>
+<u1> here is a list of my ratings 
+	</u1>
+		{% for rating in ratings %}
+		<li> <a href='/entry/{{rating.entry.id}}'><img src='{{rating.entry.image}}' height =50 width=50></img> </a><strong>{{rating.score}}</strong> {{rating.updated}}</li>
+		{% endfor %}
+	<br>
+<u2> here is a list of my comments
+	{% for comment in comments %}
+		<li><a href='/entry/{{comment.entry.id}}'> <img src='{{comment.entry.image}}' height =50 width=50></img></a><strong> {{comment.comment}} </strong>{{comment.updated}}</li>
+		{% endfor %}
+</u2>
+<br>
+<u3> here is a list of my uploads
+	{% for upload in uploads %}
+		<li> <a href='/entry/{{upload.id}}'><img src='{{upload.image}}' height =50 width=50></img></a><strong> {{upload.name}} </strong>{{comment.updated}}</li>
+		{% endfor %}
+	</u3>
+
+<br>
+<u4> here is a list of my friends
+	{% for friend in friends %}
+	<li> <a href='/activity/{{friend.id}}'> {{friend}}</a></li>	
+	{% endfor %}
+	</u4>
+{% endblock %}
+
+

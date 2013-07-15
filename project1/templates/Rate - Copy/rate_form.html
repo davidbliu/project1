@@ -1,0 +1,35 @@
+{% extends 'rate_base.html' %}
+{% load static %}
+{% block scripts %}
+<script src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src='{% static 'js/jquery.js' %}'></script>
+<script type="text/javascript" src='{% static 'googleSearch.js' %}'></script>
+ {% endblock %}
+
+{% block style %}
+<style type="text/css">
+</style>
+{% endblock %}
+
+
+{% block title %} Rate Form{% endblock %}
+
+
+
+{% block content %} 
+
+<form method='post' action='.'>
+{% csrf_token %}
+<!-- <input type="file" name="lksjdlfkjlskjdf" /> -->
+<div id="searchBar">
+          <input id='searchTerm' type='text'>
+          <button type="button" id="search"> Search </button> </br>
+        </div> <!--end of searchBar -->
+ <div id="tableDiv"><table id="table" border='1' cellspacing='5'></table></div> <!-- end of table div -->
+<!-- <form method="post" action='.'> -->
+<!--  <input type='submit' name='submit1' value='submit2'/> -->
+</form>
+{% endblock %}
+
+
+{% block pageFooter %}{% endblock %}

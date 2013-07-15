@@ -1,0 +1,328 @@
+{% load static %}
+
+<!-- growing and shrinking an image http://stackoverflow.com/questions/883448/is-there-a-way-to-grow-shrink-an-image-on-hover-using-jquery -->
+<!-- steal the side nav bar here: http://www.jeffsarmiento.com/ -->
+<html>
+  <head>
+    {% block scripts %} {% endblock %}
+    {% block style %} {% endblock %}
+    <title>Rating Site Template</title>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+     <script src='{% static 'elastislide/js/modernizr.custom.17475.js' %}'></script>
+    <script type="text/javascript" src='{% static 'elastislide/js/jquerypp.custom.js' %}'></script>
+    <script type="text/javascript" src='{% static 'elastislide/js/jquery.elastislide.js' %}'></script>
+    <link rel="stylesheet" type="text/css" href='{% static 'elastislide/css/elastislide.css' %}' />
+     <script type="text/javascript">
+      
+      $(document).ready(function(){
+        $( '#carousel' ).elastislide();
+        $( '#carousel2' ).elastislide();
+        // $('#outer_hidden').hover(
+        //   function(){
+        //     $('this').css('display':'block');
+        //   },
+        //   function(){
+        //     $('this').css('display':'none');
+        //   });
+      });
+    </script>
+    <!-- <link rel="stylesheet" type="text/css" href="elastislide/css/demo.css" /> -->
+    
+    <!-- <link rel="stylesheet" type="text/css" href="elastislide/css/custom.css" /> -->
+
+    
+
+    <style type="text/css">
+      html{
+        background-color:rgb(130,130,130);
+      }
+      div{
+        border-radius:10px;
+      }
+      .major{
+        box-shadow: 5px 5px 15px 3px rgba(0,0,0,0.2);
+      }
+      #header{
+        height: 125px;
+        width: 1030px;
+        background-color:rgb(180,180,180);
+        text-align:center;
+        margin:15px;
+        float:top;
+      }
+      #title_wrapper{
+        background-color:rgb(200,200,200);
+        box-shadow: 5px 5px 15px 3px rgba(0,0,0,0.2);
+        border-radius:15px;
+        float:left;
+        margin-left:20px;
+        margin-top:10px;
+        
+      }
+      #title_wrapper #site_title{
+         float:left;
+        font-size:40px;
+        font-family:georgia;
+        color:rgb(100,100,100);
+        padding: 0px 30px;
+      }
+      #avatar{
+        background-color:rgb(160,160,160);
+        box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);
+        float:left;
+        margin-left:125px;
+        margin-top:7px;
+      }
+      #avatar img{
+        padding:15px;
+        /*box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.2);*/
+      }
+      #content{
+        min-height:350px;
+        width: 580px;
+        background-color:rgb(180,180,180);
+        /*margin-left:200;*/
+        float:left;
+        padding-left:25px;
+        padding-right:25px;
+        padding-top: 10px;
+        margin:15px;
+      }
+      .nav{
+        list-style-type:none;
+        margin:0;
+        padding:0;
+        border-radius:10px;
+      }
+      .nav li{
+        display:block;
+        float:left;
+        padding: 7px 10px;
+        /*border:2px solid red;*/
+        background:rgb(90,90,90);
+        box-shadow: 5px 5px 25px 5px rgba(0,0,0,0.2);
+        color:white;
+        width: 75px;
+        text-align:center;
+
+      }
+      .nav #first_li{
+        border-bottom-left-radius:5px;
+        border-top-left-radius:5px;
+      }
+      .nav #last_li{
+        border-bottom-right-radius:5px;
+        border-top-right-radius:5px;
+      }
+      /*.nav li a{
+        text-decoration:none;
+        font-family:georgia;
+      }*/
+      a{
+        text-decoration:none;
+        font-family:georgia;
+      }
+      a:link    {color:white;}
+      a:visited {color:white;}
+      a:hover   {color:yellow;}
+      a:active  {color:white;}
+      }
+      li{
+        text-align:left;
+        margin-left:30px;
+      }
+      #sideBar{
+        height:350px;
+        width:350px;
+        float:left;
+        float:top;
+        overflow:auto;
+        /*margin-left:5px;*/
+        background-color:rgb(180,180,180);
+        text-align:left;
+        padding:15px;
+        margin:15px;
+      }
+      #pageFooter{
+        height:100px;
+        width:1030px;
+        background-color:rgb(180,180,180);
+        text-align:center;
+        float:left;
+        margin:15px;
+        padding:15px;
+
+      }
+      #linout{
+        margin-top:10px;
+        margin-right:15px;
+        float:right;
+        text-align:left;
+
+      }
+      #linout p{
+        font-family:georgia;
+        font-size:15px;
+        /*margin-right:158px ;*/
+        margin-top:10px;
+        float:right;
+      }
+      .slider{
+        margin:15px;
+      }
+      #carousel2 li p.caption{
+        display:none;
+      }
+      #carousel2 li div:hover{
+        height:200px;
+        width:200px;
+      }
+      /*#carousel2 li a img:hover{
+        height:200px;
+        width:200px;
+      }*/
+    </style>
+  </head>
+
+
+  <body>
+    <div id="pageWrapper">
+      <div id='header' class='major'> 
+        <div id='title_wrapper'>
+        <h1 id='site_title'>  My   <i style='color:rgb(150,150,150)'>Favorite</i>   Things </h1>
+        </div> <!-- end of title wrappper-->
+
+      <div id='avatar'>
+        {% if request.user.is_authenticated %}
+            {% if person.avatar %}
+            <img src='{{person.avatar}}' height=75 width=75></img>
+            {% else %}
+            <img src='{% static 'images/avatar.jpg' %}' height=75 width=75></img>
+            {% endif %}
+        {% else %}
+        <img src='{% static 'images/black.jpg' %}' height=75 width=75></img>
+        {% endif %}
+      </div>
+    <div id='linout'>
+      <u1 id='log_list' class='nav'>
+      <li id='first_li'><a href='/login/'>login</a></li>
+      <li><a href='/logout'>logout</a></li>
+      <li id='last_li'><a href='/create_user'> register</a></li>
+      <u1>
+        <br>
+         <p> {% if request.user.is_authenticated %}
+            logged in as <strong> {{request.user}} </strong>
+          {% else %}
+           not logged in
+            {% endif %}
+      </p>
+      
+    </div><!--end of login out-->
+
+    {% block title %} {% endblock %}
+      </div> <!-- end of header -->
+   <!--  <div id='sideBar' > <strong> Menu Options </strong>
+      <br></br>
+      
+    </div> <!-- end of side bar --> -->
+    <div id="sideBar" class='major'> <strong id='st' style='font-size:20px'>Information:</strong>
+        {% block sideBar %}{% endblock %}
+    </div> <!--end of right side bar -->
+    <div id="content" class='major'> 
+      <u1 id='nav' class='nav'> 
+        <li class='navOption' id='first_li'> <a href="/categories">categories</a> </li>
+        <li class='navOption'> <a href="/rate3/1">message</a> </li>
+        <li class='navOption'> <a href="/entry/1">gallery</a></li>
+        <li class='navOption'> <a href="/upload">upload</a></li>
+         {% if person.id %}
+        <li class='navOption'> <a href="/activity/{{person.id}}">me</a></li>
+        {% endif %}
+        <li class='navOption' id='last_li'> <a href="/settings">settings</a></li>
+       
+      </u1>
+      <br>
+      <br>
+      {% block content %} {% endblock %}
+    <div id='sliderWrap' class='slider'>
+    <ul id="carousel" class="elastislide-list">
+      {% if entries %}
+          {% for e in entries %}
+            <li> 
+                  <a href="/entry/{{e.id}}"><img src='{{e.image}}' height=100 width=100> </img></a> 
+                  
+             </li>
+            {% endfor %}
+      {% endif %}
+          {% block carousel %}{% endblock %}
+          <li><a href="#"><img src='{% static 'images/small/1.jpg' %}' height=100 width=100/></a></li>
+          <li><a href="#"><img src='{% static 'images/small/2.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/3.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/4.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/5.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/6.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/7.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/8.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/9.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/10.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/11.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/12.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/13.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/14.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/15.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/16.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/17.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/18.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/19.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/20.jpg' %}'  /></a></li>
+        </ul>
+      </div><!--end of slider wrap-->
+      <strong style='font-family:georgia ;color:rgb(80,80,80)  '> Recent Activities: </strong>
+      <div id='feedWrap' class='slider'>
+    <ul id="carousel2" class="elastislide-list">
+      {% if recent_activities %}
+          {% for act in recent_activities %}
+            <li> 
+                  <a href="/activity/{{act.person.id}}"><img src='{{act.person.avatar}}' height=100 width=100> </img></a> 
+                  
+             </li>
+            {% endfor %}
+      {% endif %}
+          <li><a href="#"><img src='{% static 'images/small/1.jpg' %}' height=100 width=100/></a></li>
+          <li><a href="#"><img src='{% static 'images/small/2.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/3.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/4.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/5.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/6.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/7.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/8.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/9.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/10.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/11.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/12.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/13.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/14.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/15.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/16.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/17.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/18.jpg' %}'   /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/19.jpg' %}'  /></a></li>
+          <li><a href="#"><img src='{% static 'images/small/20.jpg' %}'  /></a></li>
+        </ul>
+      </div><!--end of feed wrap-->
+    </div> <!-- end of content div -->
+ 
+    <br>
+    <div id='pageFooter' class='major'> <strong style='font-family:georgia; color:rgb(100,100,100);font-size:25px'>Most Popular</strong>
+      {% block pageFooter %} {% endblock %}
+
+      <div id='outer_hidden' onmouseover="document.getElementById('hidden_div').style.display='block'" onmouseout="document.getElementById('hidden_div').style.display='none'"> this is the outer div
+        <p id='hidden_div' style='display:none'> this one is hidden </p>
+      </div>
+    </div><!-- end of pageFooter-->
+  </div> <!-- end of pageWrapper-->
+
+
+
+
+</body>
+</html>

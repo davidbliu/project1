@@ -1,0 +1,22 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+Creating new user
+{% endblock %}
+
+
+
+{% block content %} 
+<h1> here you can create a new user </h1>
+<form method='post' action='.'>
+	{% csrf_token %}
+<table>
+	{{uForm}}
+</table>
+
+	<input type='submit' name='submit' value='create'/>
+</form>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

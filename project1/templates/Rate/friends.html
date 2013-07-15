@@ -1,0 +1,33 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+login view
+{% endblock %}
+
+
+
+{% block content %} 
+<br>
+<strong> {{message}}</strong>
+</br>
+<u1> friends list:
+	{% if friends %}
+		{% for friend in friends %}
+		<li>{{friend}}</li>
+		{% endfor %}
+	{% else %}
+		<li> you have no friends :) </li>
+	{% endif %}
+<u1>
+{% endblock %}
+
+{% block rightSideBar %} 
+<br><br>
+<strong> would you like to add friends?<strong>
+<form method='post' action ='.'>
+	{% csrf_token %}
+	<input type='text' name='friend_name' value='enter friend name'/>
+	<input type='submit' name='friend_add' value='add friend'/>
+	</form>
+{% endblock %}
+{% block pageFooter %} {% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'rate_base.html' %}
+
+{% block title %} 
+Activity View
+{% endblock %}
+
+
+
+{% block content %} 
+<p> {{message}} <strong>{{person.user.username}} </strong></p>
+<u1> here is a list of my ratings 
+	</u1>
+		{% for rating in ratings %}
+		<li> <img src='{{rating.entry.image}}' height =50 width=50></img> <strong>{{rating.score}}</strong> {{rating.updated}}</li>
+		{% endfor %}
+	<br>
+<u2> here is a list of my comments
+	{% for comment in comments %}
+		<li> <img src='{{comment.entry.image}}' height =50 width=50></img><strong> {{comment.comment}} </strong>{{comment.updated}}</li>
+		{% endfor %}
+</u2>
+{% endblock %}
+
+{% block rightSideBar %}
+<br>
+<u3> here is a list of my friends
+	{% for friend in friends %}
+	<li> <a href='/activity/{{friend.id}}'> {{friend}}</a></li>	
+	{% endfor %}
+	</u3>
+
+{% endblock %}
+
+{% block pageFooter %} {% endblock %}

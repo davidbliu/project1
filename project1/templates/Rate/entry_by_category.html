@@ -1,0 +1,31 @@
+{% extends 'rate_page.html' %}
+
+
+
+
+{% block sideBar %} 
+<strong> here are the entries </strong>
+{% if entryList|length == 0 %}
+<p> there are no entries under that category </p>
+<form method='post' action='.'>
+	{% csrf_token %}
+	<input type='submit' name='delete_category' value='delete this category'/>
+</form>
+{% endif %}
+</br>
+<a href='/categories/'> go back to categories </a>
+</br>
+<u1 id='entry_list'>
+{% for e in entries %}
+    <li> 
+    	<a href="/entry/{{e.id}}">{{e.name}}</a> 
+    	<img src='{{e.image}}' height=100 width=100> </img>
+    </li>
+{% endfor %}
+</u1>
+<br>
+<a href='/upload/{{category.id}}'> submit new entry</a>
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}

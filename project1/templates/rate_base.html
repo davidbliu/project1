@@ -10,50 +10,65 @@
     <script type='text/javascript' src='{% static 'sideBarAnimate.js' %}'></script>
     {% block style %} {% endblock %}
     <style type="text/css">
+      html{
+        background-color:rgb(130,130,130);
+      }
+      div{
+        border-radius:10px;
+      }
       #header{
-        height: 127px;
-        width: 1000px;
-        background-color:CCCC99;
+        height: 125px;
+        width: 1030px;
+        background-color:rgb(180,180,180);
         text-align:center;
+        margin:15px;
       }
       #content{
         min-height:350px;
-        width: 800px;
-        background-color:CCBBCC;
-        /*border-style:solid;
-        border-width:1px;*/
-        /*text-align:center;*/
-        /*float:right;*/
-        margin-left:200;
+        width: 500px;
+        background-color:rgb(180,180,180);
+        /*margin-left:200;*/
+        float:left;
+        margin:15px;
+        padding-left:10px;
+        padding-top:10px;
       }
       #sideBar{
         min-height:350px;
         width:200px;
         float:left;
-        background-color:CCCCCC;
+        background-color:rgb(180,180,180);
         text-align:center;
+        margin:15px;
+      }
+      li{
+        text-align:left;
+        margin-left:30px;
+      }
+      #right_sideBar{
+        min-height:350px;
+        width:270px;
+        float:left;
+        /*margin-left:5px;*/
+        background-color:rgb(180,180,180);
+        text-align:center;
+        margin:15px;
       }
       #pageFooter{
         height:100px;
-        width:1000px;
-        background-color:DDDD99;
+        width:1030px;
+        background-color:rgb(180,180,180);
         text-align:center;
+        float:left;
+        margin:15px;
+
       }
-/*      #nav{
+      #linout{
+        margin-top:7px;
+        margin-right:5px;
+        float:right;
         text-align:left;
-        margin-left:15px;
-      }*/
-/*      li{
-        text-indent:50px;
       }
-      table{
-        margin-left:auto;
-        margin-right:auto;
-        margin-top:auto;
-        margin-bottom:auto;
-        background-color:white;
-        text-align:center;
-      }*/
 
     </style>
   </head>
@@ -62,6 +77,19 @@
   <body>
     <div id="pageWrapper">
       <div id='header'> 
+
+    <div id='linout'>
+      <a href='/login/'>login</a>
+      <a href='/logout'>logout</a>
+      
+      <div> {% if request.user.is_authenticated %}
+            logged in as <strong> {{request.user}} </strong>
+          {% else %}
+           not logged in
+            {% endif %}
+      </div>
+      <a href='/create_user'> create new user </a>
+    </div><!--end of login out-->
         {% block title %} {% endblock %}
       </div> <!-- end of header -->
     <div id='sideBar' > <strong> Menu Options </strong>
@@ -71,15 +99,25 @@
         <li class='navOption'> <a href="/rate3/1">rate form 3</a></li>
         <li class='navOption'> <a href="/rate/">rate</a> </li>
         <li class='navOption'> <a href="/entry/1">see entries</a></li>
-        <li class='navOption'> <a href="/add/">add to db</a></li>
         <li class='navOption'> <a href="/rate2/1">rate formset</a></li>
         <li class='navOption'> <a href="/add-to-db">add images to db</a></li>
+        <li class='navOption'> <a href="/add_forms/strawberry/10/1">python image add </a></li>
+        <li class='navOption'> <a href="/upload">upload image</a></li>
+        <li class='navOption'> <a href="/friends">friends</a></li>
+        {% if person.id %}
+        <li class='navOption'> <a href="/activity/{{person.id}}">my activity</a></li>
+        {% endif %}
       </u1>
     </div> <!-- end of side bar -->
-    <div id="content"> Content
+    
+    <div id="content"> <strong>Content</strong>
           {% block content %} {% endblock %}
     </div> <!-- end of content div -->
-    <div id='pageFooter'> Page Footer
+ <div id="right_sideBar"> <strong>Right Side Bar</strong>
+      {% block rightSideBar %}{% endblock %}
+    </div> <!--end of right side bar -->
+    <br>
+    <div id='pageFooter'> <strong>Page Footer</strong>
       {% block pageFooter %} {% endblock %}
     </div><!-- end of pageFooter-->
   </div> <!-- end of pageWrapper-->

@@ -1,0 +1,58 @@
+{% extends 'rate_base.html' %}
+{% load static %}
+{% load extras %}
+{% block scripts %}
+
+ {% endblock %}
+
+{% block style %}
+<style type='text/css'>
+.formWrapper{
+	background-color:BABABA;
+	width:230px;
+}
+#rateForm{
+	float:right;
+}
+img{
+	float:right;
+	margin-right:25px;
+	margin-top:20px;
+}
+</style>
+{% endblock %}
+
+
+{% block title %} Rate Form{% endblock %}
+
+
+
+{% block content %} 
+{% for entry in entries %}
+<div class='formWrapper'>
+	<img src={{entry.image}} height=100 width=100></img>
+	<!-- <p> {{entry.name}} is the name</p> -->
+	<div class='rateForm'>
+		<form method='post' action='.'>
+		{% csrf_token %}
+		<input type='submit' name={{entry.id}} value='rate'/>
+		{{forms|get_item:entry}}
+		</form>
+	</div>
+</div>
+{% endfor %}
+<!-- <div id='e2form' class='formWrapper'>
+	<img src={{entries.1.image}} height=100 width=100></img>
+	<div class='rateForm'>
+		<form method='post' action='.'>
+		{% csrf_token %}
+		<input type='submit' name='submit' value='submit'/>
+		{{forms.1}}
+		</form>
+	</div>
+</div> -->
+{% endblock %}
+
+
+
+{% block pageFooter %}{% endblock %}

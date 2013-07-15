@@ -1,0 +1,69 @@
+{% extends 'rate_base.html' %}
+
+
+{% block title %} 
+Entry Details
+{% endblock %}
+
+{% block style %} 
+<style type='text/css'>
+#right_sideBar{
+	text-align:center;
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+<u1 id='entry_data_list'>
+	<li> name: {{entry.name}} </li>
+	<li> added by: {{entry.added_by}} </li>
+	<li> id: {{entry.id}} </li>
+	<li> category:<a href='/categories/info/{{entry.category.id}}'> {{entry.category}} </a></li>
+	<li> rating: {{score}} </li>
+	<li> date added: {{entry.date_added}}
+	<li> description: {{entry.description}}</li>
+</u1>
+<img src={{entry.image}} height=100 width= 100></img> 
+
+<div id='rating_wrapper'>
+	<form method='post' action ='.'> Rate this item: 
+		{% csrf_token %}
+		<input type ='submit' name='rate' value='1'>
+		<input type ='submit' name='rate' value='2'>
+		<input type ='submit' name='rate' value='3'>
+		<input type ='submit' name='rate' value='4'>
+		<input type ='submit' name='rate' value='5'>
+	</form>
+</div>
+<div id='new_comment_wrapper'>
+	<form action = '.' method = 'post'>
+	{% csrf_token %}
+		<input type='text' name='comment_text' value='new comment'/>
+		<input type='submit' name='add_comment' value='submit comment'/>
+	</form>
+</div>
+<u1 id='comments_list'> 
+	{% if comments|length == 0 %}
+	<strong> there are no comments </strong>
+	{% else %}
+	<strong> user comments: </strong>
+	{% endif %}
+	{% for comment in comments %}
+	<li> person: {{comment.person}}
+		</br>
+		comment: {{comment.comment}}
+	</li>
+	{% endfor %}
+</u1>
+<p><a href='/entry/{{entry.id|add:'-1'}}'>previous entry</a>
+	<a href='/entry/{{entry.id|add:'1'}}'>next entry</a>
+</p>
+{% endblock %}
+
+{% block rightSideBar %}
+<br>
+<br>
+<img src='{{entry.image}}' height=250 width=250></img>
+{% endblock %}
+
+{% block pageFooter %} {% endblock %}
