@@ -21,17 +21,15 @@ class Category(models.Model):
 		return '%s' % (self.type)
 
 class Entry(models.Model):
-	name=models.CharField('name', max_length=200, default='noname')
+	name=models.CharField('name', max_length=200, default='no name')
 	category=models.ForeignKey(Category)
-	# date_added=models.DateField('date_added', blank=True, null=True, default=datetime.now)
 	image=models.URLField(blank=False, unique=True)
+	img=models.ImageField(upload_to= 'imgdb/', blank=True, null=True)
 	description=models.TextField('description', max_length=500, null=True, blank=True)
 	added_by=models.ForeignKey(Person)
 	date_added = models.DateTimeField('date_added',auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	score=models.DecimalField(max_digits=20, decimal_places=3, default=0)
-
-	#should track person added by
 	def __str__(self):
 		return '%s' % (self.name)
 	
@@ -50,5 +48,17 @@ class Comment(models.Model):
 	entry=models.ForeignKey(Entry);
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
+	likers=models.CommaSeparatedIntegerField(max_length=10000000, blank=True)
+	dislikers=models.CommaSeparatedIntegerField(max_length=10000000,blank=True)
+	likes=models.DecimalField(max_digits=20, decimal_places=3, default=0)
+	dislikes=models.DecimalField(max_digits=20, decimal_places=3, default=0)
+	score=models.DecimalField(max_digits=20, decimal_places=3, default=0)
 	def __str__(self):
 		return '%s %s' % (self.person, self.entry)
+
+class Saved(models.Model):
+	person=models.ForeignKey(Person)
+	layout=models.TextField( max_length=50000000, null=True, blank=True)
+	entry=models.ForeignKey(Entry)
+	added = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)

@@ -18,7 +18,7 @@
 .elastislide-wrapper {
 	position: relative;
 	/*background-color: #fff;*/
-	background-color:rgb(160,160,150);
+	background-color:	#D8DEEA;
 	margin: 0 auto;
 	min-height: 60px;
 	box-shadow: 3px 3px 10px 5px rgba(0,0,0,0.5);
@@ -82,7 +82,7 @@
 
 .elastislide-carousel ul li a img {
 	display: block;
-	border: 2px solid rgb(160,160,150);
+	border: 2px solid 	#D8DEEA;
 	max-width: 100%;
 }
 

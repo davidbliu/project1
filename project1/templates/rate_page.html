@@ -1,387 +1,254 @@
 {% load static %}
-
+{% load extras %}
 <!-- growing and shrinking an image http://stackoverflow.com/questions/883448/is-there-a-way-to-grow-shrink-an-image-on-hover-using-jquery -->
 <!-- steal the side nav bar here: http://www.jeffsarmiento.com/ -->
 <html>
   <head>
-    {% block scripts %} {% endblock %}
-    {% block style %} {% endblock %}
+    <link rel="shortcut icon" href="{% static 'images/fav3.ico' %}" />
     <title>Rating Site Template</title>
      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-     <script src='{% static 'elastislide/js/modernizr.custom.17475.js' %}'></script>
-    <script type="text/javascript" src='{% static 'elastislide/js/jquerypp.custom.js' %}'></script>
-    <script type="text/javascript" src='{% static 'elastislide/js/jquery.elastislide.js' %}'></script>
-    <link rel="stylesheet" type="text/css" href='{% static 'elastislide/css/elastislide.css' %}' />
-
+     <script src="{% static 'js/lazyload.js' %}" type="text/javascript"></script>
+       <link rel='stylesheet' type='text/css' href='{% static 'rate_page.css' %}'/>
      <script type="text/javascript">
       $(document).ready(function(){
-        $( '#carousel' ).elastislide();
-        $( '#carousel2' ).elastislide();
-        $('.hider').hover(
+        $("img.lazy").lazyload();
+       $('.pic_button').hide();
+        $('#portkey').click(function(){
+          var footer=document.getElementById('pageFooter');
+          footer.scrollIntoView();
+        });
+        $('#scrolluper').click(function(){
+          var header=document.getElementById('header');
+          header.scrollIntoView();
+        });
+        var button=document.getElementById('pageFooter')
+
+        $('.dhider, .hider').hover(
+          function(){
+            var curr=$(this).children('p')[0];
+            var text=curr.innerHTML;
+            var button=$(this).children('div')[0];
+            var a=$(this).children('a')[0];
+            var but2=$(button).children('span')[0];
+            $('#hoverout').html(text);
+            $('#hoverout').show();
+            $(button).show();
+            $(but2).show();
+            $(a).css('opacity',0.5);
+          },
+          function(){
+            var button=$(this).children('div')[0]
+            var a=$(this).children('a')[0];
+            $(a).css('opacity',1);
+            $('#hoverout').hide();
+            $(button).hide();
+          });
+
+        $('.right_hov_act').hover(
           function(){
             var curr=$(this).children('p')[0];
             var text=curr.innerHTML
-            $('#hovertxt').html(text);
-            $('#hovertxt').css('display','block');
+            $('#right_hover').html(text);
+            $('#right_hover').show();
           },
           function(){
-            $('#hovertxt').css('display','none');
+            $('#right_hover').hide();
           });
       });
     </script>
-
-    <style type="text/css">
-      html{
-        background-color:rgb(130,130,130);
-      }
-      div{
-        border-radius:5px;
-      }
-      .major{
-        box-shadow: 5px 5px 15px 3px rgba(0,0,0,0.2);
-      }
-      #header{
-        height: 125px;
-        width: 1030px;
-        background-color:rgb(180,180,180);
-        text-align:center;
-        margin:15px;
-        margin-bottom:0px;
-        border-bottom-left-radius:0px;
-        border-bottom-right-radius:0px;
-        float:top;
-      }
-      #title_wrapper{
-        background-color:rgb(200,200,200);
-        box-shadow: 5px 5px 15px 3px rgba(0,0,0,0.2);
-        border-radius:5px;
-        float:left;
-        margin-left:20px;
-        margin-top:10px;
-        
-      }
-      #title_wrapper #site_title{
-         float:left;
-        font-size:40px;
-        font-family:georgia;
-        color:rgb(100,100,100);
-        padding: 0px 30px;
-      }
-      #avatar{
-        background-color:rgb(50,50,50);
-        box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);
-        float:left;
-        margin-left:135px;
-        /*was 170*/
-        margin-top:10px;
-        border-radius:2px;
-      }
-      #avatar img{
-        padding:10px;
-      }
-      #middle_container{
-        float:left;
-        margin-top:0px;
-      }
-      #sliderWrap{
-        width:635px;
-        float:left;
-      }
-      #content{
-      }
-       #sideBar{
-        height:350px;
-        width:350px;
-        float:left;
-        float:top;
-        margin-left:5px;
-        background-color:rgb(180,180,180);
-        text-align:left;
-        padding:15px;
-        padding-top:0px;
-        margin:15px;
-        margin-top:0px;
-        margin-right:0px;
-        border-top-right-radius:0px;
-        border-top-left-radius:0px;
-        margin-top:0px;
-        overflow:auto;
-      }
-      #navBar{
-        margin-left:15px;
-        width:1030px;
-        margin-bottom:0px;
-        /*box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);*/
-      }
-      #nav{
-        width:1030px;
-        margin-bottom:0px;
-        border-bottom-right-radius:5px;
-      }
-      ul.nav{
-        float:left;
-        margin:0 0 3em 0;
-        padding:0;
-        list-style:none;
-        background-color:rgb(90,90,90);
-        border-bottom:1px solid rgb(150,150,150);
-        border-top:1px solid rgb(150,150,150);
-      }
-      ul.nav li{
-        float: left;
-      }
-      ul.nav li a{
-        display:block;
-        padding:8px 15px;
-        text-decoration:none;
-        font-weight:bold;
-        color:white;
-        border-right: 1px solid rgb(150,150,150);
-      }
-      .nav li a:hover{
-        color:yellow;
-        background-color:rgb(120,120,120);
-      }
-      ul.nav li ul li{
-        float:none;
-      }
-      ul.nav li ul{
-        position:absolute;
-        list-style:none;
-        display:none;
-        background-color:rgb(90,90,90);
-      }
-      ul.nav li:hover ul{
-        display:block;
-      }
-      a{
-        text-decoration:none;
-        font-family:georgia;
-      }
-      a:link    {color:white;}
-      a:visited {color:white;}
-      a:hover   {color:yellow;}
-      a:active  {color:white;}
-      }
-      li{
-        text-align:left;
-        margin-left:30px;
-      }
-     
-      #pageFooter{
-        min-height:100px;
-        width:1000px;
-        background-color:rgb(180,180,180);
-        /*border-top-right-radius:0px;*/
-        /*border-top-left-radius:0px;*/
-        /*text-align:center;*/
-        float:left;
-        margin:15px;
-        padding:15px;
-
-      }
-      #linout{
-        margin-top:10px;
-        margin-right:15px;
-        float:right;
-        text-align:left;
-
-      }
-      #linout p{
-        font-family:georgia;
-        font-size:15px;
-        margin-top:10px;
-        float:right;
-      }
-      .slider{
-        z-index:-1;
-        margin:15px;
-      }
-      #car2{
-        float:left;
-        margin:15px;
-        width:975px;
-      }
-      #hovertxt{
-        padding:10px;
-        color:rgba(230,230,230,0.7);
-        background-color:rgba(0,0,0,.3);
-      }
-
-
+    <style type='text/css'>
     </style>
+{% block scripts %} {% endblock %}
+    {% block style %} {% endblock %}
   </head>
 
 
   <body>
+    <div id='right_hover'></div>
+    {% block pageTop %}{% endblock %}
     <div id="pageWrapper">
       <div id='header' class='major'> 
         <div id='title_wrapper'>
-        <h1 id='site_title'>  My   <span style='color:rgb(150,150,150)'>Favori</span><i style='color:rgb(140,130,130)'>test</i>   Things </h1>
+        <img id ='portkey' style='float:left;margin-left:15px;margin-right:0px; ' src='{% static 'images/sitelogo.jpg' %}' height=100 width=100></img><span id='site_title' style='padding-left:0px;margin-left:0px;font-size:50px; font-weight:bold; color:  #B1BDD6; float:left; margin-top:30px;margin-right:45px; position:relative; left:-15px'>ortfolio </span>
         </div> <!-- end of title wrappper-->
 
-      <div id='avatar'>
+      
+  <div id='linout'>
+    <div id='avatar' style='float:left'>
         {% if request.user.is_authenticated %}
             {% if person.avatar %}
-            <img src='{{person.avatar}}' height=75 width=75 class='hider'><p style='display:none'> hello orange yam </p></img>
+            <img id='portkey' style='border-radius:15px;' src='{{person.avatar}}' height=75 width=75 ></img>
             {% else %}
-            <img src='{% static 'images/avatar.jpg' %}' height=75 width=75></img>
+            <img id='portkey' style='border-radius:15px;' src='{% static 'images/avatar.jpg' %}' height=75 width=75></img>
             {% endif %}
         {% else %}
-        <img src='{% static 'images/black.jpg' %}' height=75 width=75></img>
+        <img id='portkey' style='border-radius:15px;' src='{% static 'images/blue.jpg' %}' height=75 width=75></img>
         {% endif %}
+      </div><!--end of avatar-->
+      <div id='log_wrap' style='display:inline-block'>
+        <ul id='log_list' class='nav'>
+          <li><a href='/login/'>Login</a></li>
+          <li><a href='/logout'>Logout</a></li>
+          <li><a href='/create_user'> Register</a></li>
+        </ul>
       </div>
-  <div id='linout'>
-      <ul id='log_list' class='nav'>
-        <li><a href='/login/'>login</a></li>
-        <li><a href='/logout'>logout</a></li>
-        <li><a href='/create_user'> register</a></li>
-      </ul>
-
-         <div> {% if request.user.is_authenticated %}
+         <div style='margin-top:5px; color:rgb(220,220,250)'> {% if request.user.is_authenticated %}
             logged in as <strong> {{request.user}} </strong>
           {% else %}
            not logged in
             {% endif %}
         </div>
-    </div>
-
-   <!--  <p style='float:left;'> {% if request.user.is_authenticated %}
-            logged in as <strong> {{request.user}} </strong>
-          {% else %}
-           not logged in
-            {% endif %}
-    </p> -->
-
-    {% block title %} {% endblock %}
-      </div> <!-- end of header -->
+        <div id='searchDiv' style='float:left; margin-top:10px'>
+          <form method='post' action='.'>
+            {% csrf_token %}
+          <input style='' type='text' name='search_by_term' value=''/>
+          <input style='' type='submit' name='search_submit' value='search'/>
+        </form>
+        </div>
+    </div><!-- end of linout-->
 
 <div id='navBar'>
   <ul id='nav' class='nav'> 
-        <li class='navOption' id='first_li'> <a href="/categories">categories</a> </li>
-        <li class='navOption'> <a href="/rate3/1">*message</a> </li>
-        <li class='navOption'> <a href="/upload">upload</a></li>
-        <li class='navOption'> <a href="/upload">*friends</a></li>
-        <li class='navOption'> <a href="/upload">*inbox</a></li>
-         {% if person.id %}
-        <li class='navOption'> <a href="/activity/{{person.id}}">me</a></li>
+        <li class='navOption' id='first_li'> <a href="/categories">Home</a> </li>
+        <li class='navOption'> <a href="/categories">Portfolio</a></li>
+        <li class='navOption'> <a href="/messages">Inbox</a> </li>
+        {% if person.id %}
+        <li class='navOption'> <a href="/activity/{{person.id}}">Me</a>
+<!--           <ul id='submenu' style='z-index:100'>
+              <li> <a href="/categories/1">Friends</a> </li>
+              <li> <a href="/categories/2">Inbox</a> </li>
+              
+            </ul> -->
+        </li>
         {% endif %}
-        <li class='navOption'> <a href="/settings">account settings</a></li>
-        <li class='navOption' id='last_li'> <a href="/settings">slider options</a>
+        <li class='navOption'> <a href="/people">People</a></li>
+        <li class='navOption'> <a href="/upload">Upload</a></li>
+        <li class='navOption' id='last_li'> <a href="/categories/2">Filters</a>
             <ul id='submenu' style='z-index:100'>
-              <li> <a href="/home/top">top rated</a> </li>
-              <li> <a href="/home/friend">friend activity</a> </li>
-              <li> <a href="/home/cat">by category</a> </li>
-              <li> <a href="/home/my">my activity</a> </li>
-              <li> <a href="/home/my-friends">my friends</a> </li>
+              <li> <a href="/categories/1">Top-Rated</a> </li>
+              <li> <a href="/categories/2">Recently Added</a> </li>
+              <li> <a href="/categories/3">Friend Activities</a> </li>
+              <li> <a href="/categories/4">My Uploads</a> </li>
+              <li> <a href="/categories/5">My Favorites</a> </li>
+              <li> <a href="/categories/5">Most Rated</a> </li>
             </ul>
         </li>
-
-       
+        <li> <a href="/settings">Account Settings</a></li>
+        
       </ul> <!--end of nav-->
 </div><!--end of nav bar-->
+    {% block title %} {% endblock %}
+      </div> <!-- end of header -->
+
+
 
  <div id='middle_container' >
     <div id="sideBar" class='major'> 
-      <div style='padding:5px; margin:10px; margin-left:0px;height:20px; width:75px;background-color:rgb(200,200,200);box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);border-radius:3px'>
-        <strong style='font-family:georgia; color:rgb(100,100,100);font-size:18px'>Details</strong>
-      </div>
+      {% if recent_messages %}
+      <div id='recent_messages'>
+        {% for m in recent_messages.keys %}
+        {% person_from_user m.sender as send_person %}
+        <span> <img src='{{send_person.avatar}}' height=35 width=35></img>&nbsp;&nbsp;<b>{{m.sender}}</b> {{m.message}} , {{recent_messages|get_item:m}} minutes ago</span><br>
+        {% endfor %}
+    </div>
+    {% endif %}
+      <br>
+      <!-- <div style='padding:5px; margin:10px; margin-left:0px;height:20px; width:75px;background-color:#899BC1;box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.5);border-radius:3px'>
+        <strong style='font-family:georgia; color:rgb(50,50,50);font-size:18px'>Details</strong>
+      </div> -->
         {% block sideBar %}{% endblock %}
     </div> <!--end of right side bar -->
-     <div id='sliderWrap' class='slider' style='z-index:-100'>
-    <ul id="carousel" class="elastislide-list">
-      {% if entries %}
-          {% for e in entries %}
-            <li class='hider'> 
-                  <a href="/entry/{{e.id}}"><img src='{{e.image}}' height=100 width=100> </img></a> 
-                  <p style='display:none'> {{e.description}}<br> my name is {{e.name}} score: {{e.score}}<br> added by {{e.added_by}} 
-                    <img height=50 width=50 src='{{e.added_by.avatar}}'></img><br> top comment:</p>
-                  
-             </li>
-            {% endfor %}
-      {% endif %}
-          {% block carousel %}{% endblock %}
-          <li><a href="#"><img src='{% static 'images/small/1.jpg' %}' height=100 width=100/></a></li>
-          <li><a href="#"><img src='{% static 'images/small/2.jpg' %}'  /></a></li>
-          <li class='hider'><p style='display:none'> this is a hidden message! </p><a href="#"><img src='{% static 'images/small/3.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/4.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/5.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/6.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/7.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/8.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/9.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/10.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/11.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/12.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/13.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/14.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/15.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/16.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/17.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/18.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/19.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/20.jpg' %}'  /></a></li>
-        </ul>
-      </div><!--end of slider wrap-->
-    <div id="content" style='float:left;margin-left:50px;margin-top:15px' > 
-      <div id='hovertxt' style='display:none'>
+     
+    <div id="content" style='float:left;margin-left:50px;margin-top:15px' >
+      <div id='hoverout'> <p> here is what you will see on the screen</p> </div> 
+      <div id='hovertxt' style='display:none; width=400px'>
           <p class='secret'> here is the message you will see when you hover over an image</p>
       </div>
-      {% block content %} {% endblock %}
+      <!-- {% block content %} {% endblock %} -->
+      {% block activity_block %}{% endblock %}
+      {% if entries %}
+          {% for e in entries %}
+            <div class='dhider' >
+                  <div class='pic_button' style='text-align:center'> 
+                      <form method='post' action='.'>
+                        {% csrf_token %}
+                        {% if e.added_by == person %} 
+                        <input type='submit' name='delete_entry,{{e.id}}' value='delete'/>
+                        {% endif %}
+                        <input type='submit'  name='save_entry,{{e.id}}' value='save'/>
+
+                      </form>
+                      <!-- <span style='color:black;font-family:impact; font-weight:bold; opacity:0.9; font-size:30px'> {{e.score}}</span> -->
+                  </div>
+                  
+                  <a href="/entry/{{e.id}}"><img class='lazy' src='{% static 'images/black.jpg' %}'data-original='{{e.image}}' height=100 width=100> </img></a> 
+                    
+                  <p style='display:none'> <img height=75 width=75 src='{{e.added_by.avatar}}'></img>description:  <b>{{e.description}}</b> <br> name:  <b>{{e.name}}</b> <br>score:  <b>{{e.score}}</b> <br> uploader:  <b>{{e.added_by}} </b>
+                    <br> top comments: <br>
+                    {% if comment_dict %}
+                    {% for c in comment_dict|get_item:e %}
+                    <span>
+                    <Img style='clear:both;float:left ' src='{{c.person.avatar}}' height=20 width=20></Img><span style='clear:right'>-{{c.person}}: {{c.comment}} 
+                    </span><br>
+                    {% endfor %}
+                    {% else %} 
+                    no top comment
+                    {% endif %}
+                  </p>
+                  
+             </div>
+            {% endfor %}
+      {% endif %}
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/4.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/5.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/6.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/7.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/8.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/9.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/10.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/11.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/12.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/13.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/14.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/15.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/16.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/17.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/18.jpg' %}'   /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/small/19.jpg' %}'  /></a></div>
+          <div class='dhider'><a href="#"><img height=100 width=100 src='{% static 'images/sitelogo.jpg' %}'  /></a></div>
+
     </div> <!-- end of content div -->
   </div><!--end of middle container-->
     <br>
     <div id='spacer'></div>
   </br>
     <div id='pageFooter' class='major'> 
-      <button style='margin:10px;padding:10px;float:left;height:50px; background-color:rgb(200,200,200);box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.7);'>
-        <strong style='font-family:georgia; color:rgb(100,100,100);font-size:25px'>Most Popular</strong>
-      </button>
-      <button style='padding:10px;margin:10px;float:left;height:50px; background-color:rgb(200,200,200);box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.7);'>
-        <strong style='font-family:georgia; color:rgb(100,100,100);font-size:25px'>Recent</strong>
-      </button>
-     
+      <h1 style='float:left;box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.9);padding:10px; min-width:230px;text-align:center;font-family:georgia; border-radius:3px;margin-top:2px; margin-bottom:10px'> 
+        {% if main_person %}
+        {{main_person}}'s
+        {% else %}My
+        {% endif %}Portfolio</h1>
+        <br style='clear:both'>
+      <span style='clear:both' id='scrolluper'> Back Up </span>
+      <br>
 
-
-
-      <div id='car2'>
-      <ul id="carousel2" class="elastislide-list">
-
-        {% if entries %}
-          {% for e in entries %}
-            <li class='hider'> 
-                  <a href="/entry/{{e.id}}"><img src='{{e.image}}' height=100 width=100> </img></a> 
-                  <p style='display:none'> {{e.description}}<br> my name is {{e.name}} score: {{e.score}}<br> added by {{e.added_by}}
-                    <img height=50 width=50 src='{{e.added_by.avatar}}'></img><br> top comment:</p>
-                  
-             </li>
-            {% endfor %}
-        {% endif %}
-          <li><a href="#"><img src='{% static 'images/small/1.jpg' %}' height=100 width=100/></a></li>
-          <li><a href="#"><img src='{% static 'images/small/2.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/3.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/4.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/5.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/6.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/7.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/8.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/9.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/10.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/11.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/12.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/13.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/14.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/15.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/16.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/17.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/18.jpg' %}'   /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/19.jpg' %}'  /></a></li>
-          <li><a href="#"><img src='{% static 'images/small/20.jpg' %}'  /></a></li>
-        </ul>
-      </div>
       {% block pageFooter %} {% endblock %}
 
-      
+      {% if portfolio %}
+          {% for e in portfolio %}
+            <div class='hider' style='border-radius:15px; float:left; margin:7px; box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.9);'> 
+                  <a href="/entry/{{e.entry.id}}">
+                    <img style='border-radius:15px; 'src='{{e.entry.image}}' height=100 width=100> </img>
+                  <p style='display:none'> {{e.entry.description}}<br> my name is {{e.entry.name}} score: {{e.entry.score}}<br> added by {{e.entry.added_by}} 
+                    <img height=50 width=50 src='{{e.entry.added_by.avatar}}'></img><br> top comment: 
+                 <!--    {% if comment_dict %}
+                    {{comment_dict|get_item:e}}
+                    {% endif %} -->
+                  </p>
+                  </a> 
+             </div>
+            {% endfor %}
+      {% endif %}
     </div><!-- end of pageFooter-->
   </div> <!-- end of pageWrapper-->
 

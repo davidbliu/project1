@@ -1,30 +1,77 @@
 {% extends 'rate_page.html' %}
 
-
+{% block style %}
+<style type='text/css'> 
+#delete_button input[type='submit']{
+	background-color: rgba(0,0,0,0); 
+	/*color:red;*/
+	box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+	float:left;
+	padding:5px; 
+	margin:10px;
+	color:rgb(60,60,60);
+	font-size:17px;
+	font-weight:bold;
+	font-family:georgia;
+	margin-left:25px;
+}
+#delete_button input[type='submit']:hover{
+	color:rgb(190,190,190);
+}
+#twochoices > a , #twochoices > span{
+	font-size:18px;
+	display:inline-block;
+}
+#twochoices{
+	padding:3px;
+}
+#head1{
+	display:inline-block;
+	padding:3px;
+	margin-top:5px;
+	/*box-shadow:1px 3px 5px 2px rgba(0,0,0,0.5);*/
+	color:rgb(51,51,51);
+	font-family:georgia; 
+	font-size:20px;
+	 border-radius:5px; 
+	 clear:both;
+}
+</style>
+{% endblock %}
 
 
 {% block sideBar %} 
-<strong> here are the entries </strong>
+<div id='twochoices' style='text-align:center; display:inline-block;'>
+	<a  href='/categories/'> Back </a>
+	<span> | </span>
+	<a  href='/upload/{{category.id}}'> Upload </a>
+</div>
+<br>
+<div id = 'head1'> Category: <span style='color:rgb(100,100,100)'>{{category}}</span> </div>
+
+<br>
+
+<br>
 {% if entryList|length == 0 %}
-<p> there are no entries under that category </p>
-<form method='post' action='.'>
+<p style='color:rgb(30,30,30); float:left; font-family:georgia; position:relative; left:15px'> No Entries for {{category}} </p>
+<form id='delete_button' method='post' action='.'>
 	{% csrf_token %}
-	<input type='submit' name='delete_category' value='delete this category'/>
+	<input  type='submit' name='delete_category' value='Delete {{category}}'/>
 </form>
 {% endif %}
-</br>
-<a href='/categories/'> go back to categories </a>
-</br>
-<u1 id='entry_list'>
+
+<u1 id='entry_list' style='list-style:none; float:left; margin-left:25px'>
 {% for e in entries %}
-    <li> 
-    	<a href="/entry/{{e.id}}">{{e.name}}</a> 
-    	<img src='{{e.image}}' height=100 width=100> </img>
+    <li class='right_hov_act'>
+    	<p style='display:none'> <img src='{{e.image}}' height=375 width=375> </img></p>
+    	<a href="/entry/{{e.id}}">
+    		<div style='border-radius:10px;margin:5px;display:inline-block; box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.5);'><img style='border-radius:10px' src='{{e.image}}' height=100 width=100> </a> </div>
+    	<span style='font-family:georgia; color:rgb(30,30,30)'>{{e.name}}</span>
+    	
     </li>
 {% endfor %}
 </u1>
 <br>
-<a href='/upload/{{category.id}}'> submit new entry</a>
 {% endblock %}
 
 

@@ -1,40 +1,146 @@
 {% extends 'rate_page.html' %}
 
+{% block scripts %}
+<script type='text/javascript'>
+ $(document).ready(function(){
+ 	$('#quick_rating').click(function(){
+          var footer=document.getElementById('ratingspan');
+          footer.scrollIntoView();
+        });
+ 	$('#quick_friends').click(function(){
+          var footer=document.getElementById('friendspan');
+          footer.scrollIntoView();
+        });
+ 	$('#quick_comments').click(function(){
+          var footer=document.getElementById('commentspan');
+          footer.scrollIntoView();
+        });
+ 	$('#quick_uploads').click(function(){
+          var footer=document.getElementById('uploadspan');
+          footer.scrollIntoView();
+        });
+ 	$('#quick_footer').click(function(){
+          var footer=document.getElementById('pageFooter');
+          footer.scrollIntoView();
+        });
+ });
+ 	</script>
+{% endblock %}
+{% block style %}
+<style type='text/css'>
+.list_title{
+	font-family:georgia;
+	font-weight:bold;
+	color:#2F477A;
+}
+ul{
+	list-style:none;
+}
+#quick_footer{
+	font-family:georgia;
+	color:rgb(60,60,60);
+}
+#quick_footer:hover{
+	color:rgb(190,190,190);
+}
+#friend_button input[type='submit']{
+	color:rgb(60,60,60);
+	background-color:rgba(0,0,230,0);
+	box-shadow:0px 0px 0px 0px rgba(0,0,0,0);
+	font-family:georgia;
+	font-size:17px;
+	margin:0px;
+	padding:0px;
+	position:relative;
+	top:2px;
+}
+#friend_button input[type="submit"]:hover{
+	color:rgb(190,190,190);
+	background-color:rgba(0,0,230,0);
+}
+.jump_links{
+	list-style:none;
+	float:left;
+}
+.jump_links li{
+	float:left;
+	display:block;
+	font-family:georgia;
+	color:rgb(60,60,130);
+}
+.jump_links li:hover {
+	font-weight:bold;
+}
+#person_info_wrapper{
+	background-color:rgba(0,0,0,0.1);
+	padding:15px;
+}
+</style>
+{% endblock %}
 {% block sideBar %} 
-<p> {{message}} <strong>{{main_person.user.username}} </strong></p>
-<img src='{{main_person.avatar}}' height =100 width=100> </img>
+
+<div id='person_info_wrapper'>
+<img src='{{main_person.avatar}}' height =100 width=100> 
+<span style='font-family:georgia; font-size:30px; font-weight:bold; color:#2F477A; position:relative; bottom:30px; left:25px'>
+{% if main_person == person %}
+ Me  
+{% else %}
+{{main_person}}
+{% endif %} </span></img>
 <br>
-<u1 class='nav'>
-	<li id='first_li'> <a href='ratings'>ratings</a></li>
-	<li> <a href='comments'>comments</a></li>
-	<li id='last_li'> <a href='uploads'>uploads</a></li>
-</u1>
+
+<span id='quick_footer' > Go to {{main_person}}'s Portfolio</span> <span>|</span>
+<form id = 'friend_button' style='display:inline' method='post' action = '.'>
+{% csrf_token %} 
+	{% if friends_with_me %}
+	<input  type='submit' name='delete_friend' value='Unfollow'/>
+	{% else %}
+	<input  type='submit' name='add_friend' value='Follow'/>
+	{% endif %}
+</form>
+</div> <!-- end of page top wrapper-->
 <br>
-</br>
-<u1> here is a list of my ratings 
-	</u1>
+<br>
+<span style='clear:both; float:left; font-family:georgia; font-weight:bold; color:rgb(60,60,60)'> See: </span>
+<ul class='jump_links' style='position:relative; left:10px; bottom:33px'>
+	<li id='quick_rating'> &nbsp;Ratings&nbsp;</a></li>
+	<li> | </li>
+	<li id='quick_comments'> &nbsp;Comments&nbsp; </a></li>
+	<li> | </li>
+	<li id='quick_uploads'> &nbsp;Uploads&nbsp; </a></li>
+	<li> | </li>
+	<li id='quick_friends'> &nbsp;Friends&nbsp; </a></li>
+</ul>
+
+<br style='clear:both'>
+<span  id='ratingspan' class='list_title'>{{main_person}}'s Recent Ratings</span>
+	<ul>
 		{% for rating in ratings %}
 		<li> <a href='/entry/{{rating.entry.id}}'><img src='{{rating.entry.image}}' height =50 width=50></img> </a><strong>{{rating.score}}</strong> {{rating.updated}}</li>
 		{% endfor %}
+	</ul>
 	<br>
-<u2> here is a list of my comments
+<span id='commentspan' class='list_title'>{{main_person}}'s Recent Comments</span>
+<ul> 
 	{% for comment in comments %}
 		<li><a href='/entry/{{comment.entry.id}}'> <img src='{{comment.entry.image}}' height =50 width=50></img></a><strong> {{comment.comment}} </strong>{{comment.updated}}</li>
 		{% endfor %}
-</u2>
+</ul>
 <br>
-<u3> here is a list of my uploads
+<span id='uploadspan' class='list_title'>{{main_person}}'s Recent Uploads</span>
+	<ul> 
 	{% for upload in uploads %}
 		<li> <a href='/entry/{{upload.id}}'><img src='{{upload.image}}' height =50 width=50></img></a><strong> {{upload.name}} </strong>{{comment.updated}}</li>
 		{% endfor %}
-	</u3>
+	</ul>
 
 <br>
-<u4> here is a list of my friends
+<span id='friendspan' class='list_title'>{{main_person}}'s Friends</span>
+<ul> 
 	{% for friend in friends %}
 	<li> <a href='/activity/{{friend.id}}'> {{friend}}</a></li>	
 	{% endfor %}
-	</u4>
+	</ul>
 {% endblock %}
 
 

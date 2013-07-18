@@ -1,23 +1,119 @@
 {% extends 'rate_page.html' %}
 
-
+{% block style %}
+<style type='text/css'>
+#cat_wrap{
+	background-color:rgba(0,0,0,0.1);
+	padding:15px;
+}
+#cat_wrap ul{
+	margin-left:15px;
+	list-style:none;
+}
+#search_area{
+	position:relative;
+	top:0px;
+	left:-45px;
+	float:right;
+}
+#search_area input{
+	width:125px;
+}
+#search_area  form input{
+	padding:3px; 
+	background-color:#D8DEEA;
+	 position:relative;
+	  left:40px; 
+	  bottom:5px;
+	}
+#add_cat_wrapper{
+	background-color:rgba(0,0,0,0.1);
+	padding:15px;
+	margin-top:15px;
+}
+}
+</style>
+{% endblock %}
 {% block sideBar %} 
-<u1 id='category_list' > <strong> Categories: </strong>
-{% for c in categories %}
-    <li> 
-    	<a href="info/{{c.id}}">{{c.type}}</a> 
-    </li>
-{% endfor %}
-</u1>
-</br>
-<strong> add new category: </strong>
-<br>
+
+<div id='cat_wrap'>
+	<strong style='font-family:georgia; font-size:23px; color:rgb(50,50,50)'> Categories </strong>
+	<div id='search_area'>
+	<form method='post' action='.'>
+            {% csrf_token %}
+          <input style='' type='text' name='search_cats' value=' Search Term'/>
+        </form>
+	</div>
+	<ul id='category_list' > 
+	{% for c in categories %}
+	    <li> 
+	    	<a href="/categories/info/{{c.id}}">{{c.type}}</a> 
+	    </li>
+	{% endfor %}
+	</ul>
+</div> <!--end of catwrap-->
+
+
+
+<div id='add_cat_wrapper'>
 <form method='post' action='.'>
 	{% csrf_token %}
-	<input type='text' name='cat_name' value='enter category name'/>
-	<input type='submit' name='add_cat' value='add new category'/>
+	<input style='padding:5px; background-color:#D8DEEA' type='text' name='cat_name' value=''/>
+	<input style='padding:5px' type='submit' name='add_cat' value='add new category'/>
 </form>
+</div>
 {% endblock %}
 
+{% block carousel %}
+{% if activities %}
+		{% if onlyme %}
+			{% for e in activities %}
+	            <li class='hider'> 
+	                  <a href="/entry/{{e.entry.id}}"><img src='{{e.entry.image}}' height=100 width=100> </img></a> 
+	                  <p style='display:none'> {{e.person}} {% if e.score %} rated an entry {% else %} left a comment{% endif %} {{e.updated}}<br>
+	                  	{% if e.score %} {{e.score}} {% else %} {{e.comment}} {% endif %}<br>  
+	                    <img height=50 width=50 src='{{e.person.avatar}}'></img></p>
+	                  
+	             </li>
+	            {% endfor %}
+		{% else %}
+          {% for e in activities %}
+            <li class='hider'> 
+                  <a href="/entry/{{e.entry.id}}"><img src='{{e.person.avatar}}' height=100 width=100> </img></a> 
+                  <p style='display:none'> {{e.person}} {% if e.score %} rated an entry {% else %} left a comment{% endif %} {{e.updated}}<br> 
+                  	{% if e.score %} {{e.score}} {% else %} {{e.comment}} {% endif %}<br>  
+                    <img height=50 width=50 src='{{e.entry.image}}'></img></p>
+                  
+             </li>
+            {% endfor %}
+        {% endif %}
+      {% endif %} <!--end of if activities-->
+{% endblock %}
+
+{% block activity_block %}
+{% if activities %}
+		{% if onlyme %}
+			{% for e in activities %}
+	            <div class='dhider'> 
+	                  <a href="/entry/{{e.entry.id}}"><img src='{{e.entry.image}}' height=100 width=100> </img></a> 
+	                  <p style='display:none'> {{e.person}} {% if e.score %} rated an entry {% else %} left a comment{% endif %} {{e.updated}}<br>
+	                  	{% if e.score %} {{e.score}} {% else %} {{e.comment}} {% endif %}<br>  
+	                    <img height=50 width=50 src='{{e.person.avatar}}'></img></p>
+	                  
+	             </div>
+	            {% endfor %}
+		{% else %}
+          {% for e in activities %}
+            <div class='dhider'> 
+                  <a href="/entry/{{e.entry.id}}"><img src='{{e.person.avatar}}' height=100 width=100> </img></a> 
+                  <p style='display:none'> {{e.person}} {% if e.score %} rated an entry {% else %} left a comment{% endif %} {{e.updated}}<br> 
+                  	{% if e.score %} {{e.score}} {% else %} {{e.comment}} {% endif %}<br>  
+                    <img height=50 width=50 src='{{e.entry.image}}'></img></p>
+                  
+             </div>
+            {% endfor %}
+        {% endif %}
+      {% endif %} <!--end of if activities-->
+{% endblock activity_block %}
 
 {% block pageFooter %} {% endblock %}

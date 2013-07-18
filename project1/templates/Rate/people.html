@@ -1,0 +1,79 @@
+{% extends 'rate_page.html' %}
+
+{% block style %}
+<style type='text/css'>
+#cat_wrap{
+	background-color:rgba(0,0,0,0.1);
+	padding:15px;
+}
+#people_list{
+	margin-left:15px;
+	list-style:none;
+}
+#search_area{
+	position:relative;
+	top:0px;
+	left:-35px;
+	float:right;
+}
+#search_area input{
+	width:125px;
+}
+#people_wrap form input{
+	padding:3px; 
+	background-color:#D8DEEA;
+	color:rgba(100,100,100,0.5);
+}
+#people_wrap{
+	background-color:rgba(0,0,0,0.1);
+	padding:15px;
+}
+#additional_info{
+	font-family:georgia;
+	margin:0px 25px;
+}
+#people_wrap form input[type='text']{
+	position:relative;
+	left:30px;
+}
+</style>
+{% endblock %}
+{% block sideBar %} 
+
+
+<div id='people_wrap'>
+	<strong style='font-family:georgia; font-size:23px; color:rgb(50,50,50)'> People </strong>
+	<div id='search_area'>
+	<form method='post' action='.'>
+            {% csrf_token %}
+          <input style='' type='text' name='search_people' value='search people'/>
+        </form>
+	</div>
+	<ul id='people_list' > 
+	{% for p in people %}
+	    <li> 
+	    	<a href="/activity/{{p.id}}"><img src='{{p.avatar}}' height=50 width=50></img>{{p}}</a> 
+	    </li>
+	{% endfor %}
+	</ul>
+</div> <!--end of people wrap-->
+
+
+
+</br>
+<p id = 'additional_info'> Click on a person to see their activities or send a friend request</p>
+{% endblock %}
+
+
+
+
+{% block activity_block %} 
+{% for p in people %}
+<div class='dhider'>
+	<a href="/activity/{{p.id}}"><img src='{{p.avatar}}' height=100 width=100> </img></a> 
+</div>
+{% endfor %}
+{% endblock %}
+
+
+{% block pageFooter %} {% endblock %}
