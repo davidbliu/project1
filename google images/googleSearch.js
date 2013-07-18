@@ -38,7 +38,11 @@ function searchComplete() {
     for (var i = 0; i < results.length; i++) {
       var result = results[i];
       var newImg = document.createElement('img');
+      var p=document.createElement('p');
       newImg.src=result.unescapedUrl;
+      p.innerHTML=result.unescapedUrl;
+      var foot=document.getElementById('pageFooter');
+      foot.appendChild(p);
       newImg.height=size;
       newImg.width=size;
       if(numAdded<tableCols*tableRows){

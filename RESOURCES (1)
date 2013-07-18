@@ -7,10 +7,6 @@ GIT
 	git branch clean_up
 	git checkout was for ? switching brances?
 	git merge
-
-FORMS
-	processing unbound forms
-		http://stackoverflow.com/questions/75621/how-to-use-form-values-from-an-unbound-form
 POTENTIAL PROBLEMS
 	ids of entries not reindexed after deleting so something may go wrong
 	need to start using formsets
@@ -26,7 +22,3 @@ TEMPLATES:
 
 	dictionary lookup in templates
 		http://stackoverflow.com/questions/8000022/django-template-how-to-lookup-a-dictionary-value-with-a-variable
-
-sliders
-	slider gallery demo
-	http://tympanus.net/Tutorials/SliderGallery/

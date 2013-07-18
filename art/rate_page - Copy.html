@@ -1,0 +1,209 @@
+
+
+<!-- growing and shrinking an image http://stackoverflow.com/questions/883448/is-there-a-way-to-grow-shrink-an-image-on-hover-using-jquery -->
+<!-- steal the side nav bar here: http://www.jeffsarmiento.com/ -->
+<html>
+  <head>
+    <title>Rating Site Template</title>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+     <script src="elastislide/js/modernizr.custom.17475.js"></script>
+    <script type="text/javascript" src="elastislide/js/jquerypp.custom.js"></script>
+    <script type="text/javascript" src="elastislide/js/jquery.elastislide.js"></script>
+    <link rel="stylesheet" type="text/css" href="elastislide/css/elastislide.css" />
+     <script type="text/javascript">
+      
+      $(document).hover(function(){
+        $( '#carousel' ).elastislide();
+        $( '#carousel2' ).elastislide({orientation:'vertical'});
+      });
+    </script>
+
+    <style type="text/css">
+      html{
+        background-color:rgb(130,130,130);
+      }
+      div{
+        border-radius:10px;
+      }
+      .major{
+        box-shadow: 5px 5px 25px 5px rgba(0,0,0,0.2);
+      }
+      #header{
+        height: 125px;
+        width: 1030px;
+        background-color:rgb(180,180,180);
+        text-align:center;
+        margin:15px;
+        float:top;
+      }
+      #content{
+        min-height:600px;
+        width: 800px;
+        background-color:rgb(180,180,180);
+        /*margin-left:200;*/
+        float:left;
+        padding-left:25px;
+        padding-right:25px;
+        padding-top: 10px;
+        margin:15px;
+      }
+      .nav{
+        list-style-type:none;
+        margin:0;
+        padding:0;
+        border-radius:10px;
+      }
+      .nav li{
+        display:block;
+        float:left;
+        padding: 7px 20px;
+        /*border:2px solid red;*/
+        background:rgb(90,90,90);
+        box-shadow: 5px 5px 25px 5px rgba(0,0,0,0.2);
+        color:white;
+        width: 75px;
+        text-align:center;
+
+      }
+      .nav #first_li{
+        border-bottom-left-radius:10px;
+        border-top-left-radius:10px;
+      }
+      .nav #last_li{
+        border-bottom-right-radius:10px;
+        border-top-right-radius:10px;
+      }
+      .nav li a{
+        text-decoration:none;
+        font-family:georgia;
+      }
+      a:link    {color:white;}
+      a:visited {color:white;}
+      a:hover   {color:yellow;}
+      a:active  {color:white;}
+      }
+      li{
+        text-align:left;
+        margin-left:30px;
+      }
+      #right_side{
+        float:left;
+   
+      }
+      #right_side #carousel2{
+        min-height:600px;
+      }
+      #pageFooter{
+        height:100px;
+        width:1030px;
+        background-color:rgb(180,180,180);
+        text-align:center;
+        float:left;
+        margin:15px;
+        padding:15px;
+
+      }
+      #linout{
+        margin-top:7px;
+        margin-right:5px;
+        float:right;
+        text-align:left;
+      }
+
+
+    </style>
+  </head>
+
+
+  <body>
+    <div id="pageWrapper">
+      <div id='header' class='major'> 
+
+    <div id='linout'>
+      <u1 id='log_list' class='nav'>
+      <li id='first_li'><a href='/login/'>login</a></li>
+      <li><a href='/logout'>logout</a></li>
+      <li id='last_li'><a href='/create_user'> register</a></li>
+      <u1>
+      
+    </div><!--end of login out-->
+      </div> <!-- end of header -->
+   <!--  <div id='sideBar' > <strong> Menu Options </strong>
+      <br></br>
+      
+    </div> <!-- end of side bar --> -->
+    
+    <div id="content" class='major'> 
+      <u1 id='nav' class='nav'> 
+        <li class='navOption' id='first_li'> <a href="#">categories</a> </li>
+        <li class='navOption'> <a href="#">rate</a> </li>
+        <li class='navOption'> <a href="#">gallery</a></li>
+        <li class='navOption'> <a href="#">upload</a></li>
+        <li class='navOption' id='last_li'> <a href="#">activity</a></li>
+      </u1>
+      <br>
+      <br>
+      <br>
+      
+    <div id='sliderWrap'>
+    <ul id="carousel" class="elastislide-list">
+          <li><a href="#"><img src="images/small/1.jpg" height=100 width=100/></a></li>
+          <li><a href="#"><img src="images/small/2.jpg" alt="image02" /></a></li>
+          <li><a href="#"><img src="images/small/3.jpg" alt="image03" /></a></li>
+          <li><a href="#"><img src="images/small/4.jpg" alt="image04" /></a></li>
+          <li><a href="#"><img src="images/small/5.jpg" alt="image05" /></a></li>
+          <li><a href="#"><img src="images/small/6.jpg" alt="image06" /></a></li>
+          <li><a href="#"><img src="images/small/7.jpg" alt="image07" /></a></li>
+          <li><a href="#"><img src="images/small/8.jpg" alt="image08" /></a></li>
+          <li><a href="#"><img src="images/small/9.jpg" alt="image09" /></a></li>
+          <li><a href="#"><img src="images/small/10.jpg" alt="image10" /></a></li>
+          <li><a href="#"><img src="images/small/11.jpg" alt="image11" /></a></li>
+          <li><a href="#"><img src="images/small/12.jpg" alt="image12" /></a></li>
+          <li><a href="#"><img src="images/small/13.jpg" alt="image13" /></a></li>
+          <li><a href="#"><img src="images/small/14.jpg" alt="image14" /></a></li>
+          <li><a href="#"><img src="images/small/15.jpg" alt="image15" /></a></li>
+          <li><a href="#"><img src="images/small/16.jpg" alt="image16" /></a></li>
+          <li><a href="#"><img src="images/small/17.jpg" alt="image17" /></a></li>
+          <li><a href="#"><img src="images/small/18.jpg" alt="image18" /></a></li>
+          <li><a href="#"><img src="images/small/19.jpg" alt="image19" /></a></li>
+          <li><a href="#"><img src="images/small/20.jpg" alt="image20" /></a></li>
+        </ul>
+      </div><!--end of slider wrap-->
+    </div> <!-- end of content div -->
+        
+    </div>  --><!--end of right side bar -->
+  <div id='right_side'>
+    <ul id="carousel2" class="elastislide-list">
+          <li><a href="#"><img src="images/small/1.jpg" height=100 width=100/></a></li>
+          <li><a href="#"><img src="images/small/2.jpg" alt="image02" /></a></li>
+          <li><a href="#"><img src="images/small/3.jpg" alt="image03" /></a></li>
+          <li><a href="#"><img src="images/small/4.jpg" alt="image04" /></a></li>
+          <li><a href="#"><img src="images/small/5.jpg" alt="image05" /></a></li>
+          <li><a href="#"><img src="images/small/6.jpg" alt="image06" /></a></li>
+          <li><a href="#"><img src="images/small/7.jpg" alt="image07" /></a></li>
+          <li><a href="#"><img src="images/small/8.jpg" alt="image08" /></a></li>
+          <li><a href="#"><img src="images/small/9.jpg" alt="image09" /></a></li>
+          <li><a href="#"><img src="images/small/10.jpg" alt="image10" /></a></li>
+          <li><a href="#"><img src="images/small/11.jpg" alt="image11" /></a></li>
+          <li><a href="#"><img src="images/small/12.jpg" alt="image12" /></a></li>
+          <li><a href="#"><img src="images/small/13.jpg" alt="image13" /></a></li>
+          <li><a href="#"><img src="images/small/14.jpg" alt="image14" /></a></li>
+          <li><a href="#"><img src="images/small/15.jpg" alt="image15" /></a></li>
+          <li><a href="#"><img src="images/small/16.jpg" alt="image16" /></a></li>
+          <li><a href="#"><img src="images/small/17.jpg" alt="image17" /></a></li>
+          <li><a href="#"><img src="images/small/18.jpg" alt="image18" /></a></li>
+          <li><a href="#"><img src="images/small/19.jpg" alt="image19" /></a></li>
+          <li><a href="#"><img src="images/small/20.jpg" alt="image20" /></a></li>
+        </ul>
+  </div><!--end of right side-->
+    <br>
+    <!-- <div id='pageFooter' class='major'> <strong>Page Footer</strong>
+      
+    </div> --><!-- end of pageFooter-->
+  </div> <!-- end of pageWrapper-->
+
+
+
+
+</body>
+</html>
